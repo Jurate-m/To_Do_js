@@ -1,0 +1,27 @@
+@use "variables";
+@use "sass:color";
+
+@mixin font-sizing {
+  @each $el, $value in variables.$font-sizes {
+    #{$el} {
+      font-size: $value;
+    }
+  }
+}
+
+@mixin light-linear-bg($angle, $base-color) {
+  background-image: linear-gradient(
+    $angle,
+    $base-color,
+    $base-color 20%,
+    color.adjust($base-color, $lightness: 10%) 20%,
+    color.adjust($base-color, $lightness: 10%) 40%,
+    color.adjust($base-color, $lightness: 20%) 40%,
+    color.adjust($base-color, $lightness: 20%) 60%,
+    color.adjust($base-color, $lightness: 30%) 60%,
+    color.adjust($base-color, $lightness: 30%) 80%,
+    color.adjust($base-color, $lightness: 40%) 80%,
+    color.adjust($base-color, $lightness: 40%) 100%
+  );
+  background-attachment: fixed;
+}

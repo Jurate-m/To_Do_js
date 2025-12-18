@@ -1,0 +1,51 @@
+@use "variables";
+@use "mixins";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+html {
+  font: 1rem "Montserrat", sans-serif;
+  line-height: 1.5;
+  color: variables.$c-text-primary;
+  height: 100%;
+}
+
+body {
+  padding: 120px 0;
+  @include mixins.light-linear-bg(45deg, variables.$c-bg-primary);
+  @include mixins.font-sizing;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  display: inline-block;
+}
+
+form {
+  padding: 20px 0;
+}
+
+input {
+  padding: 10px 20px;
+  border: none;
+  display: inline-block;
+  max-width: 100%;
+}
