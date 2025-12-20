@@ -1,6 +1,7 @@
 form {
   &.create-task {
     display: flex;
+    justify-content: space-between;
     position: relative;
 
     label {
@@ -9,6 +10,14 @@ form {
       width: 1px;
       margin: -1px;
       overflow: hidden;
+    }
+
+    input {
+      width: 75%;
+    }
+
+    button {
+      width: 20%;
     }
   }
 }
