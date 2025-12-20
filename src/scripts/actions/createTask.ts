@@ -21,15 +21,11 @@ export const checkIfValidInput = function () {
   return Boolean(inputValue);
 };
 
-export const formatedTask = function (): Task {
+export const getTaskAttr = function () {
   const title = getInputValue();
   const id = generateId();
 
-  return {
-    title,
-    id: id,
-    complete: false,
-  };
+  return { title, id, complete: false };
 };
 
 const clearInput = function () {
