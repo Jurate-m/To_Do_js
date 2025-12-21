@@ -7,18 +7,23 @@ const handleTaskSumbit = function (): void {
   if (!checkInputValidity) return;
   const task = createTask.getTaskAttr();
   tasksMutation.addTask(task);
-  tasksTemplate.renderTasks(tasksMutation.tasks);
+  tasksTemplate.renderTasks(tasksMutation.tasks, "new");
 };
 
-const handleTaskRemove = function (id: number): void {
+const handleTaskRemove = function (id: number) {
   tasksMutation.removeTask(id);
-  tasksTemplate.renderTasks(tasksMutation.tasks);
+  tasksTemplate.renderTasks(tasksMutation.tasks, "new");
+};
+
+const handleTaskComplete = function (id: number) {
+  tasksMutation.toggleCompleteTask(id);
 };
 
 const init = function (): void {
-  tasksTemplate.renderTasks(tasksMutation.tasks);
+  tasksTemplate.renderTasks(tasksMutation.tasks, "new");
   createTask.handleSubmit(handleTaskSumbit);
-  tasksTemplate.getTaskId(handleTaskRemove);
+  tasksTemplate.getTask(handleTaskRemove);
+  tasksTemplate.markCompleteTask(handleTaskComplete);
 };
 
 init();

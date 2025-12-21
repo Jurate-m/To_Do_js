@@ -7,10 +7,22 @@ export const addTask = function (task: Task) {
   tasks = [task, ...tasks];
 };
 
-export const removeTask = function (id: number) {
-  const getTask = tasks.filter((task) => task.id === id)[0];
+const getTaskIndex = function (id: number): Task {
+  const task = tasks.filter((task) => task.id === id)[0];
 
-  const taskIndex = tasks.indexOf(getTask);
+  return task;
+};
+
+export const removeTask = function (id: number) {
+  const task = getTaskIndex(id);
+
+  const taskIndex = tasks.indexOf(task);
 
   tasks.splice(taskIndex, 1);
+};
+
+export const toggleCompleteTask = function (id: number) {
+  const task = getTaskIndex(id);
+
+  task.complete = !task.complete;
 };
