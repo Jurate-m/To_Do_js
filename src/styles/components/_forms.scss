@@ -4,14 +4,6 @@ form {
     justify-content: space-between;
     position: relative;
 
-    label {
-      position: absolute;
-      height: 1px;
-      width: 1px;
-      margin: -1px;
-      overflow: hidden;
-    }
-
     input {
       width: 75%;
     }
