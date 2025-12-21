@@ -1,17 +1,21 @@
 import * as createTask from "./actions/createTask.ts";
-import * as tasks from "./mutations/tasks.ts";
+import * as tasksMutation from "./mutations/tasks.ts";
+import * as tasksTemplate from "./actions/tasksTemplate.ts";
 
 const handleTaskSumbit = function (): void {
   const checkInputValidity = createTask.checkIfValidInput();
 
   if (!checkInputValidity) return;
 
-  const task = createTask.formatedTask();
+  const task = createTask.getTaskAttr();
 
-  tasks.addTask(task);
+  tasksMutation.addTask(task);
+
+  tasksTemplate.renderTasks(tasksMutation.tasks);
 };
 
 const init = function (): void {
+  tasksTemplate.renderTasks(tasksMutation.tasks);
   createTask.handleSubmit(handleTaskSumbit);
 };
 

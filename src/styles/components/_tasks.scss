@@ -1,0 +1,22 @@
+@use "./../variables";
+
+.tasks {
+}
+
+.task {
+  padding: 5px 0;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: variables.$c-bg-card;
+    border-radius: 4px;
+    color: white;
+
+    p {
+      width: 75%;
+      margin-right: 15px;
+    }
+  }
+}
