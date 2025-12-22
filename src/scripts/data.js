@@ -14,4 +14,9 @@ export const DEFAULT_TASK = [
     id: 2,
     complete: false,
   },
+  {
+    title: "Read a book",
+    id: 3,
+    complete: true,
+  },
 ];
