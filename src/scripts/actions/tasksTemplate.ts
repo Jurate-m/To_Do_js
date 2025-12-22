@@ -21,7 +21,7 @@ const taskTemplate = function (data: Task) {
   `;
 };
 
-const renderTask = function (data: Task, container) {
+const renderTask = function (data: Task, container: HTMLElement) {
   const template = taskTemplate(data);
 
   container?.insertAdjacentHTML("beforeend", template);
@@ -33,7 +33,9 @@ export const renderTasks = function (tasks: Task[], tasksPrefix: string) {
   ) as HTMLUListElement;
 
   if (!container) return;
+
   container.innerHTML = "";
+
   tasks.map((task) => renderTask(task, container));
 };
 

@@ -7,14 +7,16 @@ export const addTask = function (task: Task) {
   tasks = [task, ...tasks];
 };
 
-const getTaskIndex = function (id: number): Task {
-  const task = tasks.filter((task) => task.id === id)[0];
+const getTask = function (id: number): Task | undefined {
+  const task = tasks.find((task) => task.id === id);
 
   return task;
 };
 
 export const removeTask = function (id: number) {
-  const task = getTaskIndex(id);
+  const task = getTask(id);
+
+  if (!task) return;
 
   const taskIndex = tasks.indexOf(task);
 
@@ -22,7 +24,9 @@ export const removeTask = function (id: number) {
 };
 
 export const toggleCompleteTask = function (id: number) {
-  const task = getTaskIndex(id);
+  const task = getTask(id);
+
+  if (!task) return;
 
   task.complete = !task.complete;
 };
