@@ -13,7 +13,9 @@ const taskTemplate = function (data: Task) {
   return `
     <li id='${id}' class='task'>
       <div class='task__inner'>
-        <input type="checkbox" id='task-${id}' class='hidden--v'/>
+        <input type="checkbox" id='task-${id}' class='hidden--v' ${
+    data.complete ? "checked" : ""
+  }/>
         <label for='task-${id}'>${title}</label>
         <button class='${[...btnAttributes.class].join(" ")}'></button>
       </div>
@@ -27,7 +29,10 @@ const renderTask = function (data: Task, container: HTMLElement) {
   container?.insertAdjacentHTML("beforeend", template);
 };
 
-export const renderTasks = function (tasks: Task[], tasksPrefix: string) {
+export const renderTasks = function (
+  tasks: Task[],
+  tasksPrefix: string = "new"
+) {
   const container = document.querySelector(
     `#${tasksPrefix}-tasks-list`
   ) as HTMLUListElement;
