@@ -7,6 +7,15 @@ export const addTask = function (task: Task) {
   tasks = [task, ...tasks];
 };
 
+export const filteredTasks = function (filterBy: string = "incomplete") {
+  const filteredTasks =
+    filterBy === "incomplete"
+      ? tasks.filter((task) => !task.complete)
+      : tasks.filter((task) => task.complete);
+
+  return filteredTasks;
+};
+
 const getTask = function (id: number): Task | undefined {
   const task = tasks.find((task) => task.id === id);
 
