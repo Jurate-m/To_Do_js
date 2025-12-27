@@ -29,13 +29,20 @@ export const removeTask = function (id: number) {
 
   const taskIndex = tasks.indexOf(task);
 
-  tasks.splice(taskIndex, 1);
+  return tasks.splice(taskIndex, 1);
+};
+
+const shiftTaskToStart = function (id: number) {
+  const [task] = removeTask(id);
+
+  addTask(task);
 };
 
 export const toggleCompleteTask = function (id: number) {
   const task = getTask(id);
 
   if (!task) return;
+  shiftTaskToStart(id);
 
   task.complete = !task.complete;
 };
