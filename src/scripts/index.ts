@@ -6,6 +6,7 @@ const handleTaskSumbit = function () {
   const checkInputValidity = createTask.checkIfValidInput();
   if (!checkInputValidity) return;
   const task = createTask.getTaskAttr();
+  console.log(task);
   tasksMutation.addTask(task);
   handleTasksRender();
 };
@@ -30,7 +31,7 @@ const handleTaskComplete = function (id: number) {
 const init = function () {
   handleTasksRender();
   createTask.handleSubmit(handleTaskSumbit);
-  tasksTemplate.getTask(handleTaskRemove);
+  tasksTemplate.removeTask(handleTaskRemove);
   tasksTemplate.markCompleteTask(handleTaskComplete);
 };
 

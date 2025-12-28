@@ -1,9 +1,5 @@
 import { Task } from "../interfaces.ts";
 
-const btnAttributes = {
-  class: ["btn", "btn--remove"],
-};
-
 const tasksContainer = document.querySelector(".tasks") as HTMLElement;
 
 const taskTemplate = function (data: Task) {
@@ -11,13 +7,13 @@ const taskTemplate = function (data: Task) {
   const title = data.title.toString();
 
   return `
-    <li id='${id}' class='task'>
+    <li id='${id}' class='task task--${data.complete ? "complete" : "new"}'>
       <div class='task__inner'>
         <input type="checkbox" id='task-${id}' class='hidden--v' ${
     data.complete ? "checked" : ""
   }/>
         <label for='task-${id}'>${title}</label>
-        <button class='${[...btnAttributes.class].join(" ")}'></button>
+        <button class='btn btn--remove'></button>
       </div>
     </li>
   `;
@@ -44,38 +40,47 @@ export const renderTasks = function (
   tasks.map((task) => renderTask(task, container));
 };
 
-export const renderCompleteTasks = function () {};
-
-const getTaskId = function (event: Event) {
+const getTaskElement = function (event: Event) {
   const task = (event.target as HTMLLIElement).closest(".task");
 
-  if (!task) return;
-
-  return +task?.id;
+  return task;
 };
 
-const taskEventHandler = function (event, handler) {
-  const taskId = getTaskId(event);
+const getTaskId = function (task) {
+  const taskId = +task?.id;
 
-  if (!taskId && taskId !== 0) return;
+  return taskId;
+};
 
-  handler(taskId);
+const applyActiveClass = function (task) {
+  task.classList.add("active");
+};
+
+const animationEndHandler = function (event, handler) {
+  const task = getTaskElement(event);
+  const taskId = getTaskId(task);
+
+  if (!task || (!taskId && taskId !== 0)) return;
+
+  applyActiveClass(task);
+
+  task.addEventListener("animationend", () => handler(taskId));
 };
 
 export const markCompleteTask = function (handler) {
   tasksContainer.addEventListener("change", (e) => {
-    taskEventHandler(e, handler);
+    animationEndHandler(e, handler);
   });
 };
 
-export const getTask = function (handler) {
+export const removeTask = function (handler) {
   tasksContainer.addEventListener("click", (e) => {
-    const button = (e.target as HTMLButtonElement).closest(
-      `.${[...btnAttributes.class].join(".")}`
-    );
+    const button = (e.target as HTMLButtonElement).closest(`.btn.btn--remove`);
 
     if (!button) return;
 
-    taskEventHandler(e, handler);
+    animationEndHandler(e, handler);
   });
 };
+
+// export const applyActiveClass = function (id: number) {};
