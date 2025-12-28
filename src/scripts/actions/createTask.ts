@@ -1,4 +1,3 @@
-import { Task } from "../interfaces.ts";
 import { generateId } from "../helpers.ts";
 
 const createTaskForm = document.querySelector(
