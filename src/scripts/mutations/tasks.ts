@@ -1,17 +1,14 @@
-import { DEFAULT_TASK } from "../data.js";
-import { Task } from "../interfaces.ts";
+import {DEFAULT_TASK} from "../data.js";
+import {Task} from "../interfaces.ts";
 
-export let tasks = DEFAULT_TASK.map((task: Task) => ({ ...task }));
+export let tasks = DEFAULT_TASK.map((task: Task) => ({...task}));
 
 export const addTask = function (task: Task) {
   tasks = [task, ...tasks];
 };
 
 export const filteredTasks = function (filterBy: string = "incomplete") {
-  const filteredTasks =
-    filterBy === "incomplete"
-      ? tasks.filter((task) => !task.complete)
-      : tasks.filter((task) => task.complete);
+  const filteredTasks = filterBy === "incomplete" ? tasks.filter((task) => !task.complete) : tasks.filter((task) => task.complete);
 
   return filteredTasks;
 };
@@ -29,13 +26,20 @@ export const removeTask = function (id: number) {
 
   const taskIndex = tasks.indexOf(task);
 
-  tasks.splice(taskIndex, 1);
+  return tasks.splice(taskIndex, 1);
 };
+
+// const shiftTaskToStart = function (id: number) {
+//   const [task] = removeTask(id);
+
+//   addTask(task);
+// };
 
 export const toggleCompleteTask = function (id: number) {
   const task = getTask(id);
 
   if (!task) return;
+  // shiftTaskToStart(id);
 
   task.complete = !task.complete;
 };

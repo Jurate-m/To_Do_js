@@ -7,30 +7,23 @@ const handleTaskSumbit = function () {
   if (!checkInputValidity) return;
   const task = createTask.getTaskAttr();
   tasksMutation.addTask(task);
-  handleTasksRender();
-};
-
-const handleTasksRender = function () {
-  const incompleteTasks = tasksMutation.filteredTasks();
-  const completeTasks = tasksMutation.filteredTasks("complete");
-  tasksTemplate.renderTasks(incompleteTasks);
-  tasksTemplate.renderTasks(completeTasks, "complete");
+  tasksTemplate.renderTasks(tasksMutation.tasks);
 };
 
 const handleTaskRemove = function (id: number) {
   tasksMutation.removeTask(id);
-  handleTasksRender();
+  tasksTemplate.renderTasks(tasksMutation.tasks);
 };
 
 const handleTaskComplete = function (id: number) {
   tasksMutation.toggleCompleteTask(id);
-  handleTasksRender();
+  tasksTemplate.renderTasks(tasksMutation.tasks);
 };
 
 const init = function () {
-  handleTasksRender();
+  tasksTemplate.renderTasks(tasksMutation.tasks);
   createTask.handleSubmit(handleTaskSumbit);
-  tasksTemplate.getTask(handleTaskRemove);
+  tasksTemplate.removeTask(handleTaskRemove);
   tasksTemplate.markCompleteTask(handleTaskComplete);
 };
 
