@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./src/styles/main.scss" />
     <script type="module" defer src="./src/scripts/index.ts"></script>
     <title>To do</title>
@@ -18,26 +15,14 @@
       <div class="wrapper">
         <h1>This time..</h1>
         <form action="" class="create-task">
-          <label for="task-input" class="create-task__label hidden--v"
-            >Create Task</label
-          >
-          <input
-            class="create-task__input"
-            type="text"
-            id="task-input"
-            placeholder="Create your task"
-            required
-          />
+          <label for="task-input" class="create-task__label hidden--v">Create Task</label>
+          <input class="create-task__input" type="text" id="task-input" placeholder="Create your task" required />
           <button class="btn btn--add">Add</button>
         </form>
         <div class="tasks">
           <div>
-            <h2 class="tasks__heading">Active tasks</h2>
-            <ul id="new-tasks-list"></ul>
-          </div>
-          <div>
-            <h2 class="tasks__heading">Complete tasks</h2>
-            <ul id="complete-tasks-list"></ul>
+            <h2 class="tasks__heading"></h2>
+            <ul id="tasks-list"></ul>
           </div>
         </div>
       </div>

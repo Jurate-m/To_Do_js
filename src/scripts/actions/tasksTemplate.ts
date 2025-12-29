@@ -1,6 +1,6 @@
-import { Task } from "../interfaces.ts";
+import {Task} from "../interfaces.ts";
 
-const tasksContainer = document.querySelector(".tasks") as HTMLElement;
+const tasksContainer = document.querySelector("#tasks-list") as HTMLElement;
 
 const taskTemplate = function (data: Task) {
   const id = data.id.toString();
@@ -9,9 +9,7 @@ const taskTemplate = function (data: Task) {
   return `
     <li id='${id}' class='task task--${data.complete ? "complete" : "new"}'>
       <div class='task__inner'>
-        <input type="checkbox" id='task-${id}' class='hidden--v' ${
-    data.complete ? "checked" : ""
-  }/>
+        <input type="checkbox" id='task-${id}' class='hidden--v' ${data.complete ? "checked" : ""}/>
         <label for='task-${id}'>${title}</label>
         <button class='btn btn--remove'></button>
       </div>
@@ -19,25 +17,16 @@ const taskTemplate = function (data: Task) {
   `;
 };
 
-const renderTask = function (data: Task, container: HTMLElement) {
+const renderTask = function (data: Task) {
   const template = taskTemplate(data);
 
-  container?.insertAdjacentHTML("beforeend", template);
+  tasksContainer.insertAdjacentHTML("beforeend", template);
 };
 
-export const renderTasks = function (
-  tasks: Task[],
-  tasksPrefix: string = "new"
-) {
-  const container = document.querySelector(
-    `#${tasksPrefix}-tasks-list`
-  ) as HTMLUListElement;
+export const renderTasks = function (tasks: Task[]) {
+  tasksContainer.innerHTML = "";
 
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  tasks.map((task) => renderTask(task, container));
+  tasks.map((task) => renderTask(task));
 };
 
 const getTaskElement = function (event: Event) {
@@ -52,24 +41,18 @@ const getTaskId = function (task) {
   return taskId;
 };
 
-const applyActiveClass = function (task) {
-  task.classList.add("active");
-};
-
-const animationEndHandler = function (event, handler) {
+const eventHandler = function (event: Event, handler: (id: number) => {}) {
   const task = getTaskElement(event);
   const taskId = getTaskId(task);
 
   if (!task || (!taskId && taskId !== 0)) return;
 
-  applyActiveClass(task);
-
-  task.addEventListener("animationend", () => handler(taskId));
+  handler(taskId);
 };
 
 export const markCompleteTask = function (handler) {
   tasksContainer.addEventListener("change", (e) => {
-    animationEndHandler(e, handler);
+    eventHandler(e, handler);
   });
 };
 
@@ -79,8 +62,6 @@ export const removeTask = function (handler) {
 
     if (!button) return;
 
-    animationEndHandler(e, handler);
+    eventHandler(e, handler);
   });
 };
-
-// export const applyActiveClass = function (id: number) {};
