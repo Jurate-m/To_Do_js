@@ -61,18 +61,3 @@ h1 {
   margin: -1px;
   overflow: hidden;
 }
-
-@keyframes myAnimation {
-  from {
-    background-color: red;
-  }
-  to {
-    background-color: yellow;
-  }
-}
-
-.active {
-  animation-name: myAnimation;
-  animation-duration: 4s;
-  animation-iteration-count: 1;
-}
