@@ -1,4 +1,6 @@
 import {Task} from "../interfaces.ts";
+import {checkLocationHash} from "../helpers.ts";
+import {AVAILABLE_PATHS} from "../config.js";
 
 const tasksContainer = document.querySelector("#tasks-list") as HTMLElement;
 
@@ -26,7 +28,6 @@ const renderTask = function (data: Task) {
 };
 
 export const renderTasks = function (tasks: Task[]) {
-  console.log(tasks);
   tasksContainer.innerHTML = "";
 
   tasks.map((task) => renderTask(task));
@@ -44,10 +45,9 @@ const getTaskId = function (task) {
   return taskId;
 };
 
-const applyActiveClass = function (event) {
+const applyClass = function (event, className = "active") {
   const taskEl = getTaskElement(event);
-
-  taskEl?.classList.add("active");
+  taskEl?.classList.add(className);
 };
 
 const eventHandler = function (event: Event, handler: (id: number) => {}) {
@@ -61,7 +61,14 @@ const eventHandler = function (event: Event, handler: (id: number) => {}) {
 
 export const markCompleteTask = function (handler) {
   tasksContainer.addEventListener("change", (e) => {
-    applyActiveClass(e);
+    const path = checkLocationHash();
+
+    if (!path) return eventHandler(e, handler);
+
+    if (!AVAILABLE_PATHS.includes(path)) return;
+
+    if (path === AVAILABLE_PATHS[0]) applyClass(e, "slide-right");
+    if (path === AVAILABLE_PATHS[1]) applyClass(e, "slide-left");
 
     tasksContainer.addEventListener("animationend", () => eventHandler(e, handler), {once: true});
   });
@@ -73,7 +80,7 @@ export const removeTask = function (handler) {
 
     if (!button) return;
 
-    applyActiveClass(e);
+    applyClass(e, "scale-down");
 
     tasksContainer.addEventListener("animationend", () => eventHandler(e, handler), {once: true});
   });
