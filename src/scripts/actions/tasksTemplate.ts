@@ -2,6 +2,8 @@ import {Task} from "../interfaces.ts";
 
 const tasksContainer = document.querySelector("#tasks-list") as HTMLElement;
 
+const errorMessages = null;
+
 const taskTemplate = function (data: Task) {
   const id = data.id.toString();
   const title = data.title.toString();
@@ -24,6 +26,7 @@ const renderTask = function (data: Task) {
 };
 
 export const renderTasks = function (tasks: Task[]) {
+  console.log(tasks);
   tasksContainer.innerHTML = "";
 
   tasks.map((task) => renderTask(task));
@@ -41,6 +44,12 @@ const getTaskId = function (task) {
   return taskId;
 };
 
+const applyActiveClass = function (event) {
+  const taskEl = getTaskElement(event);
+
+  taskEl?.classList.add("active");
+};
+
 const eventHandler = function (event: Event, handler: (id: number) => {}) {
   const task = getTaskElement(event);
   const taskId = getTaskId(task);
@@ -52,7 +61,9 @@ const eventHandler = function (event: Event, handler: (id: number) => {}) {
 
 export const markCompleteTask = function (handler) {
   tasksContainer.addEventListener("change", (e) => {
-    eventHandler(e, handler);
+    applyActiveClass(e);
+
+    tasksContainer.addEventListener("animationend", () => eventHandler(e, handler), {once: true});
   });
 };
 
@@ -62,6 +73,8 @@ export const removeTask = function (handler) {
 
     if (!button) return;
 
-    eventHandler(e, handler);
+    applyActiveClass(e);
+
+    tasksContainer.addEventListener("animationend", () => eventHandler(e, handler), {once: true});
   });
 };
