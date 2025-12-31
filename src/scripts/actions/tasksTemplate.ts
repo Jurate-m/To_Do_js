@@ -1,13 +1,17 @@
 import {Task} from "../interfaces.ts";
+import {checkLocationHash} from "../helpers.ts";
+import {AVAILABLE_PATHS} from "../config.js";
 
 const tasksContainer = document.querySelector("#tasks-list") as HTMLElement;
 
-const taskTemplate = function (data: Task) {
+const errorMessages = null;
+
+const taskTemplate = function (data: Task, newEl: boolean = false) {
   const id = data.id.toString();
   const title = data.title.toString();
 
   return `
-    <li id='${id}' class='task task--${data.complete ? "complete" : "new"}'>
+    <li id='${id}' class='task task--${data.complete ? "complete" : "new"} ${newEl ? "scale-up" : ""}'>
       <div class='task__inner'>
         <input type="checkbox" id='task-${id}' class='hidden--v' ${data.complete ? "checked" : ""}/>
         <label for='task-${id}'>${title}</label>
@@ -17,10 +21,14 @@ const taskTemplate = function (data: Task) {
   `;
 };
 
-const renderTask = function (data: Task) {
-  const template = taskTemplate(data);
+export const renderTask = function (data: Task, newEl: boolean = false) {
+  const template = taskTemplate(data, newEl);
 
-  tasksContainer.insertAdjacentHTML("beforeend", template);
+  let position = "beforeend";
+
+  if (newEl) position = "afterbegin";
+
+  tasksContainer.insertAdjacentHTML(position, template);
 };
 
 export const renderTasks = function (tasks: Task[]) {
@@ -41,6 +49,11 @@ const getTaskId = function (task) {
   return taskId;
 };
 
+const applyClass = function (event, className = "active") {
+  const taskEl = getTaskElement(event);
+  taskEl?.classList.add(className);
+};
+
 const eventHandler = function (event: Event, handler: (id: number) => {}) {
   const task = getTaskElement(event);
   const taskId = getTaskId(task);
@@ -50,18 +63,39 @@ const eventHandler = function (event: Event, handler: (id: number) => {}) {
   handler(taskId);
 };
 
-export const markCompleteTask = function (handler) {
+export const markCompleteTask = function (dataModHandler, handler) {
   tasksContainer.addEventListener("change", (e) => {
-    eventHandler(e, handler);
+    const path = checkLocationHash();
+
+    if (!path) return eventHandler(e, dataModHandler);
+
+    if (!AVAILABLE_PATHS.includes(path)) return;
+
+    if (path === AVAILABLE_PATHS[0]) applyClass(e, "slide-right");
+    if (path === AVAILABLE_PATHS[1]) applyClass(e, "slide-left");
+
+    eventHandler(e, dataModHandler);
+
+    tasksContainer.addEventListener(
+      "animationend",
+      () => {
+        eventHandler(e, handler);
+      },
+      {once: true}
+    );
   });
 };
 
-export const removeTask = function (handler) {
+export const removeTask = function (dataModHandler, handler) {
   tasksContainer.addEventListener("click", (e) => {
     const button = (e.target as HTMLButtonElement).closest(`.btn.btn--remove`);
 
     if (!button) return;
 
-    eventHandler(e, handler);
+    applyClass(e, "scale-down");
+
+    eventHandler(e, dataModHandler);
+
+    tasksContainer.addEventListener("animationend", () => eventHandler(e, handler), {once: true});
   });
 };

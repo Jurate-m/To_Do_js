@@ -25,3 +25,14 @@
   );
   background-attachment: fixed;
 }
+
+@mixin animationClasses($classes...) {
+  @each $name in $classes {
+    .#{$name} {
+      animation-name: #{$name};
+      animation-duration: 0.8s;
+      animation-iteration-count: 1;
+      animation-timing-function: ease-in-out;
+    }
+  }
+}

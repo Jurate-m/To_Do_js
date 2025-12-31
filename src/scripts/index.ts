@@ -2,9 +2,10 @@ import * as createTask from "./actions/createTask.ts";
 import * as tasksMutation from "./mutations/tasks.ts";
 import * as tasksTemplate from "./actions/tasksTemplate.ts";
 import {AVAILABLE_PATHS} from "./config.js";
+import {checkLocationHash} from "./helpers.ts";
 
 const handleFiltering = function () {
-  const path = window.location.hash.slice(1).trim();
+  const path = checkLocationHash();
   if (!path) tasksTemplate.renderTasks(tasksMutation.tasks);
   if (!AVAILABLE_PATHS.includes(path)) return;
   // throw error
@@ -17,17 +18,15 @@ const handleTaskSumbit = function () {
   if (!checkInputValidity) return;
   const task = createTask.getTaskAttr();
   tasksMutation.addTask(task);
-  handleFiltering();
+  tasksTemplate.renderTask(task, true);
 };
 
 const handleTaskRemove = function (id: number) {
   tasksMutation.removeTask(id);
-  handleFiltering();
 };
 
 const handleTaskComplete = function (id: number) {
   tasksMutation.toggleCompleteTask(id);
-  handleFiltering();
 };
 
 const hashChangeListener = function () {
@@ -38,8 +37,8 @@ const init = function () {
   handleFiltering();
   hashChangeListener();
   createTask.handleSubmit(handleTaskSumbit);
-  tasksTemplate.removeTask(handleTaskRemove);
-  tasksTemplate.markCompleteTask(handleTaskComplete);
+  tasksTemplate.removeTask(handleTaskRemove, handleFiltering);
+  tasksTemplate.markCompleteTask(handleTaskComplete, handleFiltering);
 };
 
 init();

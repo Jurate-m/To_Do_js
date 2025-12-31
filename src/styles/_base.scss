@@ -19,6 +19,7 @@ html {
 
 body {
   padding: 120px 0;
+  overflow-x: hidden;
   @include mixins.light-linear-bg(45deg, variables.$c-bg-primary);
   @include mixins.font-sizing;
 }
@@ -60,19 +61,4 @@ h1 {
   width: 1px;
   margin: -1px;
   overflow: hidden;
-}
-
-@keyframes myAnimation {
-  from {
-    background-color: red;
-  }
-  to {
-    background-color: yellow;
-  }
-}
-
-.active {
-  animation-name: myAnimation;
-  animation-duration: 4s;
-  animation-iteration-count: 1;
 }
