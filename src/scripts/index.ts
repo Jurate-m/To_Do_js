@@ -18,7 +18,7 @@ const handleTaskSumbit = function () {
   if (!checkInputValidity) return;
   const task = createTask.getTaskAttr();
   tasksMutation.addTask(task);
-  handleFiltering();
+  tasksTemplate.renderTask(task, true);
 };
 
 const handleTaskRemove = function (id: number) {
