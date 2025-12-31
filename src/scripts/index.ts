@@ -23,12 +23,10 @@ const handleTaskSumbit = function () {
 
 const handleTaskRemove = function (id: number) {
   tasksMutation.removeTask(id);
-  handleFiltering();
 };
 
 const handleTaskComplete = function (id: number) {
   tasksMutation.toggleCompleteTask(id);
-  handleFiltering();
 };
 
 const hashChangeListener = function () {
@@ -39,8 +37,8 @@ const init = function () {
   handleFiltering();
   hashChangeListener();
   createTask.handleSubmit(handleTaskSumbit);
-  tasksTemplate.removeTask(handleTaskRemove);
-  tasksTemplate.markCompleteTask(handleTaskComplete);
+  tasksTemplate.removeTask(handleTaskRemove, handleFiltering);
+  tasksTemplate.markCompleteTask(handleTaskComplete, handleFiltering);
 };
 
 init();

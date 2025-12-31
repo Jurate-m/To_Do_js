@@ -59,28 +59,38 @@ const eventHandler = function (event: Event, handler: (id: number) => {}) {
   handler(taskId);
 };
 
-export const markCompleteTask = function (handler) {
+export const markCompleteTask = function (dataModHandler, handler) {
   tasksContainer.addEventListener("change", (e) => {
     const path = checkLocationHash();
 
-    if (!path) return eventHandler(e, handler);
+    if (!path) return eventHandler(e, dataModHandler);
 
     if (!AVAILABLE_PATHS.includes(path)) return;
 
     if (path === AVAILABLE_PATHS[0]) applyClass(e, "slide-right");
     if (path === AVAILABLE_PATHS[1]) applyClass(e, "slide-left");
 
-    tasksContainer.addEventListener("animationend", () => eventHandler(e, handler), {once: true});
+    eventHandler(e, dataModHandler);
+
+    tasksContainer.addEventListener(
+      "animationend",
+      () => {
+        eventHandler(e, handler);
+      },
+      {once: true}
+    );
   });
 };
 
-export const removeTask = function (handler) {
+export const removeTask = function (dataModHandler, handler) {
   tasksContainer.addEventListener("click", (e) => {
     const button = (e.target as HTMLButtonElement).closest(`.btn.btn--remove`);
 
     if (!button) return;
 
     applyClass(e, "scale-down");
+
+    eventHandler(e, dataModHandler);
 
     tasksContainer.addEventListener("animationend", () => eventHandler(e, handler), {once: true});
   });
