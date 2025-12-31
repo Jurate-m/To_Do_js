@@ -19,6 +19,7 @@ html {
 
 body {
   padding: 120px 0;
+  overflow-x: hidden;
   @include mixins.light-linear-bg(45deg, variables.$c-bg-primary);
   @include mixins.font-sizing;
 }

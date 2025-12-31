@@ -1,56 +1,42 @@
-@keyframes scaleDown {
+@use "mixins";
+
+@keyframes scale-down {
   from {
     opacity: 1;
-    height: auto;
     transform: scale(1);
   }
 
-  25% {
-    padding: 0;
-    opacity: 0;
-  }
-
-  45% {
-    // height: 0;
-  }
-
-  to {
-    opacity: 0;
-    height: 0;
-    padding: 0;
-    transform: scale(0);
-  }
-}
-
-@keyframes scaleUp {
-  from {
-    opacity: 0;
-    height: 0;
-    padding: 0;
+  50% {
     opacity: 0;
     transform: scale(0);
   }
 
-  // 25% {
-  //   padding: 0;
-  //   opacity: 0;
-  // }
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
 
-  45% {
-    // height: 0;
+@keyframes scale-up {
+  from {
+    opacity: 0;
+    transform: scale(0);
   }
 
   to {
     opacity: 1;
-    height: auto;
     transform: scale(1);
   }
 }
 
-@keyframes slideLeft {
+@keyframes slide-left {
   from {
     opacity: 1;
     transform: translateX(0);
+  }
+
+  50% {
+    opacity: 0;
   }
 
   to {
@@ -59,7 +45,7 @@
   }
 }
 
-@keyframes slideRight {
+@keyframes slide-right {
   from {
     opacity: 1;
     transform: translateX(0);
@@ -70,26 +56,5 @@
     transform: translateX(100%);
   }
 }
-.scale-up {
-  animation-name: scaleUp;
-  animation-duration: 1s;
-  animation-iteration-count: 1;
-}
 
-.scale-down {
-  animation-name: scaleDown;
-  animation-duration: 1s;
-  animation-iteration-count: 1;
-}
-
-.slide-left {
-  animation-name: slideLeft;
-  animation-duration: 1s;
-  animation-iteration-count: 1;
-}
-
-.slide-right {
-  animation-name: slideRight;
-  animation-duration: 1s;
-  animation-iteration-count: 1;
-}
+@include mixins.animationClasses("scale-up", "scale-down", "slide-left", "slide-right");
