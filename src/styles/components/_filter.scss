@@ -1,0 +1,22 @@
+@use "./../variables";
+
+.filters {
+  ul {
+    max-height: 0;
+    height: auto;
+    overflow: hidden;
+    transform-origin: top center;
+    transition: all 0.5s ease-in-out;
+
+    li {
+      padding: 5px 0;
+    }
+    a {
+      color: variables.$c-cta-primary;
+    }
+
+    &.active {
+      max-height: 360px;
+    }
+  }
+}

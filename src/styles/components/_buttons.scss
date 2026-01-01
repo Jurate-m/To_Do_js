@@ -5,7 +5,7 @@
   display: block;
 
   &--add {
-    background-color: variables.$c-cta;
+    background-color: variables.$c-cta-primary;
     color: white;
     padding: 0 10px;
     font-weight: 500;
@@ -33,6 +33,64 @@
 
     &::after {
       transform: translate(-50%, -50%) rotate(-45deg);
+    }
+  }
+
+  &--filters {
+    display: block;
+    position: relative;
+    height: variables.$btn-size;
+    width: variables.$btn-size;
+    text-align: center;
+    margin-left: auto;
+
+    span {
+      position: absolute;
+      display: block;
+      height: 2px;
+      border-radius: 2px;
+      background-color: variables.$c-cta-secondary;
+      left: 50%;
+
+      &:first-child {
+        width: calc(variables.$btn-size - 10px);
+        top: 10px;
+        transform: translateX(-50%);
+      }
+
+      &:nth-child(2) {
+        width: calc(variables.$btn-size - 20px);
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &:last-child {
+        width: calc(variables.$btn-size - 30px);
+        bottom: 10px;
+        transform: translateX(-50%);
+      }
+    }
+
+    &.active {
+      span {
+        &:first-child,
+        &:last-child {
+          top: 50%;
+          width: calc(variables.$btn-size - 20px);
+        }
+
+        &:first-child {
+          transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          display: none;
+        }
+
+        &:last-child {
+          transform: translate(-50%, -50%) rotate(-45deg);
+        }
+      }
     }
   }
 }

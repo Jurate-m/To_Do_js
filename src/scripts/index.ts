@@ -1,6 +1,7 @@
 import * as createTask from "./actions/createTask.ts";
 import * as tasksMutation from "./mutations/tasks.ts";
 import * as tasksTemplate from "./actions/tasksTemplate.ts";
+import * as filters from "./actions/filters.ts";
 import {AVAILABLE_PATHS} from "./config.js";
 import {checkLocationHash} from "./helpers.ts";
 
@@ -35,6 +36,7 @@ const hashChangeListener = function () {
 
 const init = function () {
   handleFiltering();
+  filters.handleFiltersClick();
   hashChangeListener();
   createTask.handleSubmit(handleTaskSumbit);
   tasksTemplate.removeTask(handleTaskRemove, handleFiltering);
