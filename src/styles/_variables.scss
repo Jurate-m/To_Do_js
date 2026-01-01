@@ -1,15 +1,23 @@
 @use "sass:color";
 
-$c-bg-primary: #fb8b24;
-$c-text-primary: #110c04;
-$c-bg-card: #bb3e03;
+$c-bg-primary: #1a1a1d;
+// $c-text-primary: #110c04;
+$c-text-primary: #eee;
 
-$c-cta: #2e7a88;
+// $c-bg-card: #bb3e03;
+$c-bg-card: color.adjust($c-bg-primary, $lightness: 10%);
+$c-shadow: color.adjust($c-bg-primary, $blackness: 10%);
+$shadow: 2px 4px 8px $c-shadow;
 
-$linear-bg: radial-gradient(circle, rgba(131, 56, 236, 1) 0%, rgba(1, 22, 39, 1) 100%);
+$c-cta-primary: #826aed;
+$c-cta-secondary: $c-text-primary;
+
+// $linear-bg: radial-gradient(circle, rgba(131, 56, 236, 1) 0%, rgba(1, 22, 39, 1) 100%);
 
 $font-sizes: (
   h1: 4rem,
   h2: 1.2rem,
   h3: 1.1rem,
 );
+
+$btn-size: 40px;
