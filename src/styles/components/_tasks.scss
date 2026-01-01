@@ -16,12 +16,13 @@
 }
 
 .task {
-  padding: 5px 0;
+  padding: 10px 0;
 
   &__inner {
     display: flex;
     padding: 10px 15px;
-    background-color: variables.$c-bg-card;
+    background-color: rgba(variables.$c-bg-card, 0.1);
+    box-shadow: variables.$shadow;
     border-radius: 4px;
     color: white;
 
