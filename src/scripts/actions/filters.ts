@@ -1,4 +1,7 @@
+import {checkLocationHash} from "../helpers.ts";
+
 const filterConatiner = document.querySelector(".filters");
+const filterLinks = document.querySelectorAll(".filters-list__link");
 
 export const handleFiltersClick = function () {
   filterConatiner?.addEventListener("click", (e) => {
@@ -11,4 +14,13 @@ export const handleFiltersClick = function () {
     filterList?.classList.toggle("active");
     btn?.classList.toggle("active");
   });
+};
+
+export const applyActiveClassToLink = function () {
+  const hash = checkLocationHash();
+
+  for (const link of filterLinks) {
+    link.classList.remove("active");
+    if (link.hash === hash) link.classList.add("active");
+  }
 };
