@@ -1,15 +1,26 @@
+@use "./../variables";
+
 form {
   &.create-task {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-
-    input {
-      width: 75%;
+    .form__inner {
+      position: relative;
     }
 
-    button {
-      width: 20%;
+    input {
+      width: 100%;
+      padding-left: calc(variables.$btn-size + 20px);
+      padding-right: 20px;
+      border-radius: 30px;
+    }
+
+    .btn {
+      position: absolute;
+      top: 50%;
+      left: 2px;
+      height: variables.$btn-size;
+      width: variables.$btn-size;
+      border-radius: 50%;
+      transform: translateY(-50%);
     }
   }
 }
