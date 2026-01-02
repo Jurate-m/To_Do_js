@@ -1,22 +1,37 @@
 @use "./../variables";
 
 .filters {
+  padding-bottom: 20px;
+
   ul {
+    display: flex;
     max-height: 0;
     height: auto;
     overflow: hidden;
     transform-origin: top center;
-    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out 0.1s;
 
-    li {
-      padding: 5px 0;
-    }
     a {
-      color: variables.$c-cta-primary;
+      display: block;
+      color: variables.$c-cta-secondary;
+      padding: 5px 10px;
+      border-radius: 4px;
+
+      &:active {
+        color: variables.$c-cta-primary;
+      }
+
+      &.active {
+        color: variables.$c-bg-primary;
+        background-color: variables.$c-cta-secondary;
+        font-weight: 500;
+      }
     }
 
     &.active {
       max-height: 360px;
+      opacity: 1;
     }
   }
 }
