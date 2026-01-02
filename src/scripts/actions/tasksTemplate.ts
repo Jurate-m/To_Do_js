@@ -1,5 +1,5 @@
 import {Task} from "../interfaces.ts";
-import {checkLocationHash} from "../helpers.ts";
+import {slicedLocationHash} from "../helpers.ts";
 import {AVAILABLE_PATHS} from "../config.js";
 
 const tasksContainer = document.querySelector("#tasks-list") as HTMLElement;
@@ -65,7 +65,7 @@ const eventHandler = function (event: Event, handler: (id: number) => {}) {
 
 export const markCompleteTask = function (dataModHandler, handler) {
   tasksContainer.addEventListener("change", (e) => {
-    const path = checkLocationHash();
+    const path = slicedLocationHash();
 
     if (!path) return eventHandler(e, dataModHandler);
 
