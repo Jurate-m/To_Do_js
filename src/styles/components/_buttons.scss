@@ -5,15 +5,23 @@
   display: block;
 
   &--add {
-    background-color: variables.$c-cta;
+    background-color: variables.$c-cta-primary;
     color: white;
     padding: 0 10px;
     font-weight: 500;
   }
 
   &--remove {
-    height: 40px;
-    width: 40px;
+    height: variables.$btn-size-sm;
+    width: variables.$btn-size-sm;
+    border-radius: 50%;
+
+    &:hover {
+      &::before,
+      &::after {
+        width: 4px;
+      }
+    }
 
     &::before,
     &::after {
@@ -24,7 +32,7 @@
       border-radius: 2px;
       top: 50%;
       left: 50%;
-      background-color: white;
+      background-color: #eee;
     }
 
     &::before {
@@ -33,6 +41,61 @@
 
     &::after {
       transform: translate(-50%, -50%) rotate(-45deg);
+    }
+  }
+
+  &--filters {
+    display: block;
+    position: relative;
+    height: variables.$btn-size;
+    width: variables.$btn-size-sm;
+    text-align: center;
+    margin-left: auto;
+
+    span {
+      position: absolute;
+      display: block;
+      height: 2px;
+      border-radius: 2px;
+      background-color: variables.$c-cta-secondary;
+      left: 50%;
+      width: variables.$btn-size-sm;
+
+      &:first-child {
+        top: 13px;
+        transform: translateX(-50%);
+      }
+
+      &:nth-child(2) {
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &:last-child {
+        bottom: 13px;
+        transform: translateX(-50%);
+      }
+    }
+
+    &.active {
+      span {
+        &:first-child,
+        &:last-child {
+          top: 50%;
+        }
+
+        &:first-child {
+          transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          display: none;
+        }
+
+        &:last-child {
+          transform: translate(-50%, -50%) rotate(-45deg);
+        }
+      }
     }
   }
 }

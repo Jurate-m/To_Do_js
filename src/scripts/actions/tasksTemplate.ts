@@ -1,5 +1,5 @@
 import {Task} from "../interfaces.ts";
-import {checkLocationHash} from "../helpers.ts";
+import {slicedLocationHash} from "../helpers.ts";
 import {AVAILABLE_PATHS} from "../config.js";
 
 const tasksContainer = document.querySelector("#tasks-list") as HTMLElement;
@@ -49,9 +49,14 @@ const getTaskId = function (task) {
   return taskId;
 };
 
-const applyClass = function (event, className = "active") {
+const applyActiveClass = function (event, className = "active") {
   const taskEl = getTaskElement(event);
   taskEl?.classList.add(className);
+};
+
+const toggleClass = function (event, className) {
+  const taskEl = getTaskElement(event);
+  taskEl?.classList.contains(className) ? taskEl?.classList.remove(className) : taskEl?.classList.add(className);
 };
 
 const eventHandler = function (event: Event, handler: (id: number) => {}) {
@@ -65,14 +70,19 @@ const eventHandler = function (event: Event, handler: (id: number) => {}) {
 
 export const markCompleteTask = function (dataModHandler, handler) {
   tasksContainer.addEventListener("change", (e) => {
-    const path = checkLocationHash();
+    const task = getTaskElement(e);
+
+    toggleClass(e, "task--new");
+    toggleClass(e, "task--complete");
+
+    const path = slicedLocationHash();
 
     if (!path) return eventHandler(e, dataModHandler);
 
     if (!AVAILABLE_PATHS.includes(path)) return;
 
-    if (path === AVAILABLE_PATHS[0]) applyClass(e, "slide-right");
-    if (path === AVAILABLE_PATHS[1]) applyClass(e, "slide-left");
+    if (path === AVAILABLE_PATHS[0]) applyActiveClass(e, "slide-right");
+    if (path === AVAILABLE_PATHS[1]) applyActiveClass(e, "slide-left");
 
     eventHandler(e, dataModHandler);
 
@@ -92,7 +102,7 @@ export const removeTask = function (dataModHandler, handler) {
 
     if (!button) return;
 
-    applyClass(e, "scale-down");
+    applyActiveClass(e, "scale-down");
 
     eventHandler(e, dataModHandler);
 

@@ -15,18 +15,21 @@
       <div class="wrapper">
         <h1>This time..</h1>
         <form action="" class="create-task">
-          <label for="task-input" class="create-task__label hidden--v">Create Task</label>
-          <input class="create-task__input" type="text" id="task-input" placeholder="Create your task" required />
-          <button class="btn btn--add">Add</button>
+          <div class="form__inner">
+            <button class="btn btn--add">+</button>
+            <label for="task-input" class="create-task__label hidden--v">Create new task</label>
+            <input class="create-task__input" type="text" id="task-input" placeholder="Create your task" required />
+          </div>
         </form>
         <div class="tasks">
-          <h2 class="tasks__heading"></h2>
-          <div class="tasks__filtering">
-            <ul>
-              <li><a href="#">All</a></li>
-              <li><a href="#completed">Compled</a></li>
-              <li><a href="#incomplete">Incomplete</a></li>
+          <!-- <h2 class="tasks__heading"></h2> -->
+          <div class="filters">
+            <ul id="filters-list">
+              <li><a class="filters-list__link" href="#">All</a></li>
+              <li><a class="filters-list__link" href="#completed">Completed</a></li>
+              <li><a class="filters-list__link" href="#incomplete">Incomplete</a></li>
             </ul>
+            <button class="btn btn--filters"><span></span><span></span><span></span></button>
           </div>
           <ul id="tasks-list"></ul>
         </div>

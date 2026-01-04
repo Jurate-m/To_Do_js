@@ -1,11 +1,12 @@
 import * as createTask from "./actions/createTask.ts";
 import * as tasksMutation from "./mutations/tasks.ts";
 import * as tasksTemplate from "./actions/tasksTemplate.ts";
+import * as filters from "./actions/filters.ts";
 import {AVAILABLE_PATHS} from "./config.js";
-import {checkLocationHash} from "./helpers.ts";
+import {slicedLocationHash} from "./helpers.ts";
 
 const handleFiltering = function () {
-  const path = checkLocationHash();
+  const path = slicedLocationHash();
   if (!path) tasksTemplate.renderTasks(tasksMutation.tasks);
   if (!AVAILABLE_PATHS.includes(path)) return;
   // throw error
@@ -30,11 +31,16 @@ const handleTaskComplete = function (id: number) {
 };
 
 const hashChangeListener = function () {
-  window.addEventListener("hashchange", handleFiltering);
+  window.addEventListener("hashchange", () => {
+    handleFiltering();
+    filters.applyActiveClassToLink();
+  });
 };
 
 const init = function () {
   handleFiltering();
+  filters.applyActiveClassToLink();
+  filters.handleFiltersClick();
   hashChangeListener();
   createTask.handleSubmit(handleTaskSumbit);
   tasksTemplate.removeTask(handleTaskRemove, handleFiltering);

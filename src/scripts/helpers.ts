@@ -3,5 +3,10 @@ export const generateId = function (): number {
 };
 
 export const checkLocationHash = function () {
-  return window.location.hash.slice(1).trim();
+  return window.location.hash;
+};
+
+export const slicedLocationHash = function () {
+  const path = checkLocationHash();
+  return path.slice(1).trim();
 };
