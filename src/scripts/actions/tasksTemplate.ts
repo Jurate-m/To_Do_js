@@ -11,6 +11,7 @@ const taskTemplate = function (data: Task, newEl: boolean = false) {
   const title = data.title.toString();
 
   const liEl = document.createElement("li");
+  liEl.id = id;
   liEl.classList.add("task", `task--${data.complete ? "complete" : "new"}`);
 
   if (newEl) {
@@ -39,6 +40,22 @@ const taskTemplate = function (data: Task, newEl: boolean = false) {
   return liEl;
 };
 
+const emptyTemplate = function (filter: string = "") {
+  const h3El = document.createElement("h3");
+  h3El.classList.add("tasks__empty");
+  h3El.textContent = "There are currently no tasks for you. Create a new one :)";
+
+  if (filter) h3El.textContent = `There are no ${filter} tasks`;
+
+  return h3El;
+};
+
+const renderEmptyTemplate = function (filter: string = "") {
+  const template = emptyTemplate(filter);
+
+  tasksContainer.insertAdjacentElement("afterbegin", template);
+};
+
 export const renderTask = function (data: Task, newEl: boolean = false) {
   const template = taskTemplate(data, newEl);
 
@@ -49,8 +66,10 @@ export const renderTask = function (data: Task, newEl: boolean = false) {
   tasksContainer.insertAdjacentElement(position, template);
 };
 
-export const renderTasks = function (tasks: Task[]) {
+export const renderTasks = function (tasks: Task[], filter: string = "") {
   tasksContainer.innerHTML = "";
+
+  if (!tasks.length) return renderEmptyTemplate(filter);
 
   tasks.map((task) => renderTask(task));
 };

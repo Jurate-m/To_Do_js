@@ -11,7 +11,7 @@ const handleFiltering = function () {
   if (!AVAILABLE_PATHS.includes(path)) return;
   // throw error
   const filteredTasks = tasksMutation.filteredTasks(path);
-  tasksTemplate.renderTasks(filteredTasks);
+  tasksTemplate.renderTasks(filteredTasks, path);
 };
 
 const handleTaskSumbit = function () {
