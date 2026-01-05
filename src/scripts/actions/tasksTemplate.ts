@@ -42,7 +42,6 @@ const taskTemplate = function (data: Task, newEl: boolean = false) {
 
 const emptyTemplate = function (filter: string = "") {
   const h3El = document.createElement("h3");
-  h3El.classList.add("tasks__empty");
   h3El.textContent = "There are currently no tasks for you. Create a new one :)";
 
   if (filter) h3El.textContent = `There are no ${filter} tasks`;
