@@ -2,6 +2,10 @@ export const generateId = function (): number {
   return Date.now();
 };
 
+export const redirectHome = function () {
+  window.location.hash = "";
+};
+
 export const checkLocationHash = function () {
   return window.location.hash;
 };

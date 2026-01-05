@@ -3,15 +3,15 @@ import * as tasksMutation from "./mutations/tasks.ts";
 import * as tasksTemplate from "./actions/tasksTemplate.ts";
 import * as filters from "./actions/filters.ts";
 import {AVAILABLE_PATHS} from "./config.js";
-import {slicedLocationHash} from "./helpers.ts";
+import {slicedLocationHash, redirectHome} from "./helpers.ts";
 
 const handleFiltering = function () {
   const path = slicedLocationHash();
+  if (path && !AVAILABLE_PATHS.includes(path)) redirectHome();
   if (!path) tasksTemplate.renderTasks(tasksMutation.tasks);
   if (!AVAILABLE_PATHS.includes(path)) return;
-  // throw error
   const filteredTasks = tasksMutation.filteredTasks(path);
-  tasksTemplate.renderTasks(filteredTasks);
+  tasksTemplate.renderTasks(filteredTasks, path);
 };
 
 const handleTaskSumbit = function () {
@@ -20,6 +20,7 @@ const handleTaskSumbit = function () {
   const task = createTask.getTaskAttr();
   tasksMutation.addTask(task);
   tasksTemplate.renderTask(task, true);
+  handleFiltering();
 };
 
 const handleTaskRemove = function (id: number) {
