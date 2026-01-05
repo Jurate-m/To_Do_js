@@ -10,15 +10,33 @@ const taskTemplate = function (data: Task, newEl: boolean = false) {
   const id = data.id.toString();
   const title = data.title.toString();
 
-  return `
-    <li id='${id}' class='task task--${data.complete ? "complete" : "new"} ${newEl ? "scale-up" : ""}'>
-      <div class='task__inner'>
-        <input type="checkbox" id='task-${id}' class='hidden--v' ${data.complete ? "checked" : ""}/>
-        <label for='task-${id}'>${title}</label>
-        <button class='btn btn--remove'></button>
-      </div>
-    </li>
-  `;
+  const liEl = document.createElement("li");
+  liEl.classList.add("task", `task--${data.complete ? "complete" : "new"}`);
+
+  if (newEl) {
+    liEl.classList.add("scale-up");
+  }
+
+  const wrapperDiv = document.createElement("div");
+  wrapperDiv.classList.add("task__inner");
+  const inputEl = document.createElement("input");
+  inputEl.type = "checkbox";
+  inputEl.id = `task-${id}`;
+  inputEl.classList.add("hidden--v");
+  inputEl.checked = Boolean(data.complete);
+  const labelEl = document.createElement("label");
+  labelEl.htmlFor = `task-${id}`;
+  labelEl.textContent = title;
+  const btnEl = document.createElement("button");
+  btnEl.classList.add("btn", "btn--remove");
+
+  wrapperDiv.appendChild(inputEl);
+  wrapperDiv.appendChild(labelEl);
+  wrapperDiv.appendChild(btnEl);
+
+  liEl.appendChild(wrapperDiv);
+
+  return liEl;
 };
 
 export const renderTask = function (data: Task, newEl: boolean = false) {
@@ -28,7 +46,7 @@ export const renderTask = function (data: Task, newEl: boolean = false) {
 
   if (newEl) position = "afterbegin";
 
-  tasksContainer.insertAdjacentHTML(position, template);
+  tasksContainer.insertAdjacentElement(position, template);
 };
 
 export const renderTasks = function (tasks: Task[]) {
