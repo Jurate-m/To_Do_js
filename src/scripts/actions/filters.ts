@@ -10,17 +10,23 @@ export const handleFiltersClick = function () {
     if (!btn) return;
 
     const filterList = filterConatiner.querySelector("#filters-list");
-
     filterList?.classList.toggle("active");
-    btn?.classList.toggle("active");
+
+    for (const link of filterLinks) {
+      link.tabIndex = link.tabIndex < 0 ? 0 : -1;
+    }
+
+    btn.classList.toggle("active");
+
+    btn.ariaPressed = btn.ariaPressed === "false";
   });
 };
 
 export const applyActiveClassToLink = function () {
-  const hash = checkLocationHash();
-
+  const linkHash = checkLocationHash();
   for (const link of filterLinks) {
     link.classList.remove("active");
-    if (link.hash === hash) link.classList.add("active");
+    if (!linkHash && link.getAttribute("href") === "#") link.classList.add("active");
+    if (link.getAttribute("href") === linkHash) link.classList.add("active");
   }
 };

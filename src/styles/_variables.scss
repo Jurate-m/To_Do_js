@@ -1,18 +1,12 @@
 @use "sass:color";
 
 $c-bg-primary: #1a1a1d;
-// $c-text-primary: #110c04;
 $c-text-primary: #eee;
-
-// $c-bg-card: #bb3e03;
 $c-bg-card: color.adjust($c-bg-primary, $lightness: 10%);
 $c-shadow: color.adjust($c-bg-primary, $blackness: 10%);
 $shadow: 2px 4px 8px $c-shadow;
-
 $c-cta-primary: #826aed;
 $c-cta-secondary: $c-text-primary;
-
-// $linear-bg: radial-gradient(circle, rgba(131, 56, 236, 1) 0%, rgba(1, 22, 39, 1) 100%);
 
 $font-sizes: (
   h1: 4rem,
