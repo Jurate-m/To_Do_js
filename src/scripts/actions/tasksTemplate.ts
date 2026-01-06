@@ -30,6 +30,7 @@ const taskTemplate = function (data: Task, newEl: boolean = false) {
   labelEl.textContent = title;
   const btnEl = document.createElement("button");
   btnEl.classList.add("btn", "btn--remove");
+  btnEl.setAttribute("aria-label", `Remove ${title.toLowerCase()} task`);
 
   wrapperDiv.appendChild(inputEl);
   wrapperDiv.appendChild(labelEl);

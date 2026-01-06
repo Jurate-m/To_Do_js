@@ -52,6 +52,12 @@
     text-align: center;
     margin-left: auto;
 
+    &:hover {
+      span {
+        height: 4px;
+      }
+    }
+
     span {
       position: absolute;
       display: block;
